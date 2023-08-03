@@ -1,7 +1,7 @@
 const fs = require('fs');
 
 
-const requestHandler = (req,req)=>{
+const requestHandler = (req,res)=>{
 let url = req.url;
 let method = req.method;
 
@@ -25,7 +25,7 @@ if(url == '/message' && method == 'POST'){
         const parsedBody = Buffer.concat(body).toString();
         const message = parsedBody.split('=')[1];
         console.log(message);
-        fs.write('message.txt', message,(err)=>{
+        fs.writeFile('message.txt', message,(err)=>{
             res.statusCode = 302;
             res.setHeader('location', '/');
             return res.end();    
